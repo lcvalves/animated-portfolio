@@ -24,6 +24,14 @@ camera.position.setX(-3);
 
 renderer.render(scene, camera);
 
+// Torus knot
+const geometry = new THREE.TorusKnotGeometry(30, 1.5, 300, 20, 7, 12);
+const material = new THREE.MeshNormalMaterial();
+const torusKnot = new THREE.Mesh(geometry, material);
+scene.add(torusKnot);
+torusKnot.position.z = 8;
+torusKnot.position.x = 5;
+
 // Stars
 function addStar() {
   const geometry = new THREE.SphereGeometry(0.25, 24, 24);
@@ -89,7 +97,7 @@ const controls = new OrbitControls(camera, renderer.domElement);
 function animate() {
   requestAnimationFrame(animate);
   if (loadedModel) {
-    loadedModel.scene.scale.set(250, 250, 250);
+    loadedModel.scene.scale.set(50, 50, 50);
     loadedModel.scene.rotation.x -= 0.0025;
     loadedModel.scene.rotation.y -= 0.0025;
     loadedModel.scene.rotation.z += 0.001;
