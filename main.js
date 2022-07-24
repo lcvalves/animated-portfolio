@@ -20,9 +20,24 @@ const renderer = new THREE.WebGLRenderer({
 renderer.setPixelRatio(window.devicePixelRatio);
 renderer.setSize(window.innerWidth, window.innerHeight);
 camera.position.setZ(100);
-camera.position.setX(0);
+camera.position.setX(-10);
 
 renderer.render(scene, camera);
+
+// Stars
+function addStar() {
+  const geometry = new THREE.SphereGeometry(0.25, 24, 24);
+  const material = new THREE.MeshStandardMaterial({ color: 0xffffff });
+  const star = new THREE.Mesh(geometry, material);
+
+  const [x, y, z] = Array(3)
+    .fill()
+    .map(() => THREE.MathUtils.randFloatSpread(250));
+
+  star.position.set(x, y, z);
+  scene.add(star);
+}
+Array(500).fill().forEach(addStar);
 
 // Background
 const nebula = new THREE.TextureLoader().load("/carina-nebula.jpg");
@@ -52,7 +67,7 @@ loader.load(
 
 // Helpers
 const lightHelper = new THREE.PointLightHelper(pointLight);
-const gridHelper = new THREE.GridHelper(100, 100);
+const gridHelper = new THREE.GridHelper(200, 50);
 const axesHelper = new THREE.AxesHelper(100);
 
 scene.add(lightHelper, gridHelper, axesHelper);
@@ -61,14 +76,13 @@ const controls = new OrbitControls(camera, renderer.domElement);
 
 // Animation Loop
 function animate() {
+  requestAnimationFrame(animate);
   if (loadedModel) {
     loadedModel.scene.scale.set(250, 250, 250);
     loadedModel.scene.rotation.x -= 0.0025;
     loadedModel.scene.rotation.y -= 0.0025;
     loadedModel.scene.rotation.z += 0.001;
   }
-
-  requestAnimationFrame(animate);
   controls.update();
   renderer.render(scene, camera);
 }
