@@ -10,7 +10,7 @@ const camera = new THREE.PerspectiveCamera(
   75,
   window.innerWidth / window.innerHeight,
   0.1,
-  2000
+  1000
 );
 
 const renderer = new THREE.WebGLRenderer({
@@ -19,8 +19,8 @@ const renderer = new THREE.WebGLRenderer({
 
 renderer.setPixelRatio(window.devicePixelRatio);
 renderer.setSize(window.innerWidth, window.innerHeight);
-camera.position.setZ(100);
-camera.position.setX(-10);
+camera.position.setZ(30);
+camera.position.setX(-3);
 
 renderer.render(scene, camera);
 
@@ -42,6 +42,17 @@ Array(500).fill().forEach(addStar);
 // Background
 const nebula = new THREE.TextureLoader().load("/carina-nebula.jpg");
 scene.background = nebula;
+
+// Avatar cube
+const cubeTexture = new THREE.TextureLoader().load("luis.png");
+const cube = new THREE.Mesh(
+  new THREE.BoxGeometry(3, 3, 3),
+  new THREE.MeshBasicMaterial({ map: cubeTexture })
+);
+scene.add(cube);
+cube.scale.set(3, 3, 3);
+cube.position.z = 8;
+cube.position.x = 5;
 
 // Lights
 const pointLight = new THREE.PointLight(0xffffff);
