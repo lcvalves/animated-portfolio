@@ -206,7 +206,7 @@ let createPlanet = function (options) {
 
 let earth = createPlanet({
   surface: {
-    size: 1,
+    size: 1.2,
     material: {
       bumpScale: 0.05,
       specular: new THREE.Color("grey"),
@@ -239,18 +239,36 @@ let earth = createPlanet({
   },
 });
 scene.add(earth);
-earth.position.z = 7.5;
-earth.position.setX(-3);
-earth.position.setY(0.25);
+earth.position.z = 37;
+earth.position.setX(-3.5);
+earth.position.setY(-0.5);
 
 // Galaxy
 let galaxyModel;
-const loader = new GLTFLoader();
+let loader = new GLTFLoader();
 loader.load(
   "/assets/galaxy/scene.gltf",
   function (gltf) {
     galaxyModel = gltf;
     scene.add(gltf.scene);
+  },
+  undefined,
+  function (error) {
+    console.error(error);
+  }
+);
+
+// Computer
+let computerModel;
+loader = new GLTFLoader();
+loader.load(
+  "/assets/computer/scene.gltf",
+  function (gltf) {
+    computerModel = gltf;
+    scene.add(gltf.scene);
+    computerModel.scene.position.setZ(4);
+    computerModel.scene.position.setX(1.25);
+    computerModel.scene.position.setY(-0.75);
   },
   undefined,
   function (error) {
@@ -265,7 +283,7 @@ scene.background = nebula;
 // Scroll Animation
 function moveCamera() {
   const t = document.body.getBoundingClientRect().top;
-  earth.rotation.y += 0.05;
+  earth.rotation.y += 0.025;
 
   cube.rotation.y += 0.025;
   cube.rotation.z += 0.025;
@@ -274,7 +292,6 @@ function moveCamera() {
   camera.position.x = t * -0.0002;
   camera.rotation.y = t * -0.0002;
 }
-
 document.body.onscroll = moveCamera;
 moveCamera();
 
@@ -282,11 +299,17 @@ moveCamera();
 function animate() {
   requestAnimationFrame(animate);
   if (galaxyModel) {
-    galaxyModel.scene.scale.set(50, 50, 50);
-    galaxyModel.scene.rotation.x -= 0.0025;
-    galaxyModel.scene.rotation.y -= 0.0025;
-    galaxyModel.scene.rotation.z += 0.001;
+    galaxyModel.scene.scale.set(75, 75, 75);
+    galaxyModel.scene.rotation.x -= 0.00125;
+    galaxyModel.scene.rotation.y -= 0.00125;
+    galaxyModel.scene.rotation.z += 0.0005;
   }
+  if (computerModel) {
+    computerModel.scene.scale.set(0.75, 0.75, 0.75);
+    computerModel.scene.rotation.y -= 0.0025;
+    computerModel.scene.rotation.z -= 0.0005;
+  }
+  earth.rotation.y += 0.001;
   torusKnot.rotation.z += 0.005;
 
   //controls.update();

@@ -1,0 +1,11 @@
+Model Information:
+* title:	Tatung Einstein TC-01
+* source:	https://sketchfab.com/3d-models/tatung-einstein-tc-01-822001fad7fa4155aa3b2c0a2011bc93
+* author:	denisstephane (https://sketchfab.com/denisstephane)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Tatung Einstein TC-01" (https://sketchfab.com/3d-models/tatung-einstein-tc-01-822001fad7fa4155aa3b2c0a2011bc93) by denisstephane (https://sketchfab.com/denisstephane) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
