@@ -25,10 +25,10 @@ const ambientLight = new THREE.AmbientLight(0xffffff);
 scene.add(pointLight, ambientLight);
 
 // Helpers
-const lightHelper = new THREE.PointLightHelper(pointLight);
-const gridHelper = new THREE.GridHelper(200, 50);
-const axesHelper = new THREE.AxesHelper(100);
-scene.add(lightHelper, gridHelper, axesHelper);
+// const lightHelper = new THREE.PointLightHelper(pointLight);
+// const gridHelper = new THREE.GridHelper(200, 50);
+// const axesHelper = new THREE.AxesHelper(100);
+// scene.add(lightHelper, gridHelper, axesHelper);
 const controls = new OrbitControls(camera, renderer.domElement);
 
 // Torus knot
@@ -374,7 +374,7 @@ function animate() {
   }
   if (booksModel) {
     booksModel.scene.scale.set(2.5, 2.5, 2.5);
-    booksModel.scene.rotation.y += 0.005;
+    booksModel.scene.rotation.y -= 0.01;
   }
   earth.rotation.y += 0.001;
   torusKnot.rotation.z += 0.005;
