@@ -16,8 +16,6 @@ const renderer = new THREE.WebGLRenderer({
 });
 renderer.setPixelRatio(window.devicePixelRatio);
 renderer.setSize(window.innerWidth, window.innerHeight);
-camera.position.setZ(30);
-camera.position.setX(-3);
 renderer.render(scene, camera);
 
 // Lights
@@ -34,12 +32,11 @@ scene.add(lightHelper, gridHelper, axesHelper);
 const controls = new OrbitControls(camera, renderer.domElement);
 
 // Torus knot
-const geometry = new THREE.TorusKnotGeometry(30, 1.5, 300, 20, 7, 12);
+const geometry = new THREE.TorusKnotGeometry(7.5, 0.45, 300, 20, 7, 12);
 const material = new THREE.MeshNormalMaterial();
 const torusKnot = new THREE.Mesh(geometry, material);
 scene.add(torusKnot);
-torusKnot.position.z = 8;
-torusKnot.position.x = 5;
+torusKnot.position.x = 2;
 
 // Stars
 function addStar() {
@@ -59,13 +56,12 @@ Array(500).fill().forEach(addStar);
 // Avatar cube
 const cubeTexture = new THREE.TextureLoader().load("luis.png");
 const cube = new THREE.Mesh(
-  new THREE.BoxGeometry(3, 3, 3),
+  new THREE.BoxGeometry(2, 2, 2),
   new THREE.MeshBasicMaterial({ map: cubeTexture })
 );
 scene.add(cube);
-cube.scale.set(3, 3, 3);
-cube.position.z = 8;
-cube.position.x = 5;
+cube.position.z = -5;
+cube.position.x = 3;
 
 // Earth Proto
 let planetProto = {
@@ -210,7 +206,7 @@ let createPlanet = function (options) {
 
 let earth = createPlanet({
   surface: {
-    size: 3,
+    size: 1,
     material: {
       bumpScale: 0.05,
       specular: new THREE.Color("grey"),
@@ -243,8 +239,9 @@ let earth = createPlanet({
   },
 });
 scene.add(earth);
-earth.position.z = 30;
-earth.position.setX(-10);
+earth.position.z = 7.5;
+earth.position.setX(-3);
+earth.position.setY(0.25);
 
 // Galaxy
 let galaxyModel;
@@ -265,6 +262,22 @@ loader.load(
 const nebula = new THREE.TextureLoader().load("/carina-nebula.jpg");
 scene.background = nebula;
 
+// Scroll Animation
+function moveCamera() {
+  const t = document.body.getBoundingClientRect().top;
+  earth.rotation.y += 0.05;
+
+  cube.rotation.y += 0.025;
+  cube.rotation.z += 0.025;
+
+  camera.position.z = t * -0.01;
+  camera.position.x = t * -0.0002;
+  camera.rotation.y = t * -0.0002;
+}
+
+document.body.onscroll = moveCamera;
+moveCamera();
+
 // Animation Loop
 function animate() {
   requestAnimationFrame(animate);
@@ -274,8 +287,9 @@ function animate() {
     galaxyModel.scene.rotation.y -= 0.0025;
     galaxyModel.scene.rotation.z += 0.001;
   }
-  controls.update();
+  torusKnot.rotation.z += 0.005;
+
+  //controls.update();
   renderer.render(scene, camera);
 }
-
 animate();
