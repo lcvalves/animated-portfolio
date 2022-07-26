@@ -9,7 +9,7 @@ canvas {
 }
 
 :root {
-  --dark-bg: rgba(15, 15, 15, 0.95);
+  --dark-bg: rgba(15, 15, 15, 0.8);
   --spacing: 350px;
 
   font-family: brandon-grotesque, sans-serif;
@@ -59,18 +59,12 @@ section {
 footer {
   margin: 0;
   padding: 0;
-  margin-bottom: var(--spacing);
+  grid-column: 3;
   position: absolute;
+  right: 5rem;
+  top: 92.5%;
   bottom: 0;
   width: 100%;
-}
-
-footer p {
-  color: black;
-  background-color: white;
-  font-size: 4rem;
-  display: inline;
-  line-height: 1;
 }
 
 .right {
