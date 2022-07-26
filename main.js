@@ -312,6 +312,24 @@ loader.load(
   }
 );
 
+// Books
+let booksModel;
+loader = new GLTFLoader();
+loader.load(
+  "/assets/books/scene.gltf",
+  function (gltf) {
+    booksModel = gltf;
+    scene.add(gltf.scene);
+    booksModel.scene.position.setZ(20);
+    booksModel.scene.position.setX(2.5);
+    booksModel.scene.position.setY(-1);
+  },
+  undefined,
+  function (error) {
+    console.error(error);
+  }
+);
+
 // Background
 const nebula = new THREE.TextureLoader().load("/carina-nebula.jpg");
 scene.background = nebula;
@@ -353,6 +371,10 @@ function animate() {
     deskModel.scene.scale.set(0.025, 0.025, 0.025);
     deskModel.scene.rotation.y -= 0.0025;
     deskModel.scene.rotation.x += 0.0005;
+  }
+  if (booksModel) {
+    booksModel.scene.scale.set(2.5, 2.5, 2.5);
+    booksModel.scene.rotation.y += 0.005;
   }
   earth.rotation.y += 0.001;
   torusKnot.rotation.z += 0.005;
